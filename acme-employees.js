@@ -20,7 +20,9 @@ const spacer = text => {
 spacer('findEmployeeByName Moe')
 spacer('')
 
+// cool 1st variable name but 2nd could be better. what is it an array of?
 function findEmployeeByName(empName, array) {
+  // I see you used filter below, how would you rewrite this with only array methods?
   for (let i = 0; i < array.length; i++) {
     if (array[i].name === empName) return array[i]
   }
@@ -33,8 +35,12 @@ spacer('')
 spacer('findManagerFor Shep Jr.')
 spacer('')
 
+// touching back on variable naming, is the first parameter a func?
 function findManagerFor(func, array) {
   let arr = array.filter(val => val.id === func.managerId)
+  // I like the idea (and is what I used to do)
+  // there's a prototype method called .find that stops when it finds the first element
+  // and does not return an array. check it out
   return arr[0]
 }
 
@@ -47,6 +53,8 @@ spacer('')
 spacer('findCoworkersFor Larry')
 spacer('')
 
+// nice filter!
+// variable names though
 function findCoworkersFor(func, array) {
   return array.filter(val => {
     if (val !== func) return val.managerId === func.managerId
@@ -66,12 +74,14 @@ spacer('')
 spacer('findManagementChain for moe')
 spacer('')
 
+// I'm gonna sound like a broken mp3 but variable names
 function findManagementChainForEmployee(func, array) {
   let finalArray = []
   let currentManager = findManagerFor(func, array)
-  if (func.managerId === undefined) {
+  if (func.managerId === undefined) { // good base case
     return []
   } else {
+    // good recursion
     let nextManager = findManagementChainForEmployee(currentManager, employees)
     finalArray.push(...nextManager, currentManager)
   }
@@ -106,11 +116,12 @@ spacer('')
 spacer('generateManagementTree')
 spacer('')
 
+// we can go over this in office hours if the solution doesn't make sense
 function generateManagementTree(array) {
   const base = array[0]
 
   for (let i = 1; i < array.length; i++) {
-    let currentManager = findManagerFor(array[i], array)
+    let currentManager = findManagerFor(array[i], array) // good, using earlier function
     base.reports = currentManager
 
     return base
